@@ -22,7 +22,7 @@ const main = async () => {
 
             case 2:
                 //show list Task
-                console.log(tasks.toArray);
+                tasks.listShowAll();
                 await pause();
                 break;
         }

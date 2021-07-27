@@ -15,6 +15,17 @@ class Tasks {
             this._listTask[task.id] = task;
         });
     }
+
+    listShowAll() {
+        const data = this.toArray;
+        data.forEach(({ description, status }, index) => {
+            const statusTask = status === null ? 'pendiente'.red : 'completada'.green;
+            const idx = `${index + 1}`.green;
+            const taskDescription = `${idx} ${description} :: ${statusTask}`;
+            console.log(taskDescription);
+        });
+    }
+
     //return array of tasks
     get toArray() {
         // trasnform list tasks object in a array of tasks
