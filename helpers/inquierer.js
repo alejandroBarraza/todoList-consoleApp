@@ -80,8 +80,45 @@ const questionInput = async (message) => {
     return taskInput;
 };
 
+const questionDeleteTask = async (arrTask = []) => {
+    const choices = arrTask.map((task, i) => {
+        console.log(task.id);
+        let idx = `${i + 1}`.green;
+
+        return {
+            value: task.id,
+            name: `${idx}. ${task.description} `,
+        };
+    });
+
+    const question = [
+        {
+            type: 'list',
+            name: 'opt',
+            message: 'Select task to delete?',
+            choices,
+        },
+    ];
+    const { opt } = await inquirer.prompt(question);
+    return opt;
+};
+
+const confirmation = async (message) => {
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message,
+        },
+    ];
+    const { ok } = await inquirer.prompt(question);
+    return ok;
+};
+
 module.exports = {
     inquiereMenu,
     pause,
     questionInput,
+    questionDeleteTask,
+    confirmation,
 };
