@@ -1,5 +1,11 @@
 const { saveToDB, readDb } = require('./database/utilsDB');
-const { inquiereMenu, pause, questionInput } = require('./helpers/inquierer');
+const {
+    inquiereMenu,
+    pause,
+    questionInput,
+    questionDeleteTask,
+    confirmation,
+} = require('./helpers/inquierer');
 const Task = require('./helpers/models/task');
 const Tasks = require('./helpers/models/Tasks');
 
@@ -23,6 +29,26 @@ const main = async () => {
             case 2:
                 //show list Task
                 tasks.listShowAll();
+                await pause();
+                break;
+            case 3:
+                tasks.listCompletedPending(true);
+                await pause();
+                break;
+            case 4:
+                tasks.listCompletedPending(false);
+                await pause();
+                break;
+            case 6:
+                const id = await questionDeleteTask(tasks.toArray);
+                const confirmationQuestion = await confirmation(`would you like to delete`);
+                console.log();
+                console.log(confirmationQuestion);
+                if (confirmationQuestion) {
+                    tasks.DeleteTaks(id);
+                    console.log(`task deleted succesfully`);
+                }
+
                 await pause();
                 break;
         }
