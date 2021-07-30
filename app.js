@@ -5,6 +5,7 @@ const {
     questionInput,
     questionDeleteTask,
     confirmation,
+    strikeTask,
 } = require('./helpers/inquierer');
 const Task = require('./helpers/models/task');
 const Tasks = require('./helpers/models/Tasks');
@@ -37,6 +38,13 @@ const main = async () => {
                 break;
             case 4:
                 tasks.listCompletedPending(false);
+                await pause();
+                break;
+            case 5:
+                const completeAPending = await strikeTask(tasks.toArray);
+                console.log(completeAPending);
+                //toggle the task
+                tasks.toggleTask(completeAPending);
                 await pause();
                 break;
             case 6:
