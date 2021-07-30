@@ -115,10 +115,37 @@ const confirmation = async (message) => {
     return ok;
 };
 
+// strikeTask
+
+const strikeTask = async (arrTask = []) => {
+    const choices = arrTask.map((task, i) => {
+        console.log(task.id);
+        let idx = `${i + 1}`.green;
+
+        return {
+            value: task.id,
+            name: `${idx}. ${task.description} `,
+            checked: task.status ? true : false,
+        };
+    });
+
+    const question = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'selet a task to complete',
+            choices,
+        },
+    ];
+    const { ids } = await inquirer.prompt(question);
+    return ids;
+};
+
 module.exports = {
     inquiereMenu,
     pause,
     questionInput,
     questionDeleteTask,
     confirmation,
+    strikeTask,
 };

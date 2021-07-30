@@ -46,12 +46,29 @@ class Tasks {
             }
         });
     }
-
+    //delete a task given an id
     DeleteTaks(id) {
         if (this._listTask[id]) {
             delete this._listTask[id];
         }
     }
+    //toggle a task , recive an array ids(completed) for change status in corresponding object(t),t>=0....t
+    toggleTask(ids) {
+        ids.forEach((task) => {
+            const taskToggle = this._listTask[task];
+            if (!taskToggle.status) {
+                //set status to task
+                taskToggle.status = 'ok';
+            }
+        });
+        //id not given in ids array , change status to pending task(null)
+        this.toArray.forEach((task) => {
+            if (!ids.includes(task.id)) {
+                this._listTask[task.id].status = null;
+            }
+        });
+    }
+
     //return array of tasks
     get toArray() {
         // trasnform list tasks object in a array of tasks
